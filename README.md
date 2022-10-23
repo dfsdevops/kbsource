@@ -1,6 +1,6 @@
 # KBsources
 
-Kubernetes Base Sources
+Kubernetes Base Sources. Bring consistency to your config repos!
 
 
 ### The Problem
@@ -18,8 +18,7 @@ For the most part, all of these problems could be addressed through some type of
 
 `kbsource` takes a set of kubernetes resources from stdin, and writes each resource into individual files following a naming scheme of your choice.
 
-This allows the possibility of a set of CI pipelines that can read from upstream helm chart updates and manifest release packages, template them, separate them into files, and overwrite the existing files in your repo in a consistent, git-diffable way. One can then utilize other tools such as the wonderful https://github.com/snarlysodboxer/predictable-yaml to autoformat further if desired. Run it by hand, have it open an automatic PR or just have it merge directly! the possibilities are endless.
-
+This allows the possibility of a set of CI pipelines that can read from upstream helm chart updates and manifest release packages, template them, separate them into files, and overwrite the existing files in your repo in a consistent, git-diffable way. One can then utilize other tools such as the wonderful https://github.com/snarlysodboxer/predictable-yaml to autoformat further if desired. Throw in a kustomize stage that adds patches or transformations! Run it by hand, have it open an automatic PR or just have it merge directly! the possibilities are endless.
 ### Further improvements past initial version
 
 mutate labels/namespace
@@ -33,5 +32,6 @@ autoformatting/auto-ordering
 - Take stdin stream of k8s resources (yaml-only for now), read them into an internal state.
 - Marshall output into separate yaml files named after each resource name and `Kind`
 - Add config format/flag to represent (perhaps something like `--format 'KIND.name.apiVersion.yaml'` at it's most explicit.).
+- create example commands utiltizing upstream helm/kustomize projects.
 - allow for grouping of one type of resource (all configmaps, all deployments, etc.) in a single file.
 - (maybe) Allow for grouping by label (e.g. component) into a single file.
