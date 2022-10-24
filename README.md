@@ -27,8 +27,8 @@ autoformatting/auto-ordering
 
 ### Roadmap
 
-- Add initial README
-- Setup intial cobra-CLI structure/verbs
+- ~~Add initial README~~
+- ~~Setup intial cobra-CLI structure/verbs~~
 - Take stdin stream of k8s resources (yaml-only for now), read them into an internal state.
 - Marshall output into separate yaml files named after each resource name and `Kind`
 - Add config format/flag to represent (perhaps something like `--format 'KIND.name.apiVersion.yaml'` at it's most explicit.).
