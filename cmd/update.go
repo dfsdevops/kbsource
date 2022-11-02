@@ -28,24 +28,40 @@ By default output filename format is [kind].[name].yaml`,
 	},
 }
 
+type K8sobject struct {
+	Kind       string `yaml:"kind"`
+	Name       string `yaml:"metadata.name"`
+	ApiVersion string `yaml:"apiVersion"`
+}
+
 func readAndUpdateManifests() error {
 	reader := io.Reader(os.Stdin)
 	decoder := yaml.NewDecoder(reader)
 	for {
-		var node yaml.Node
-		err := decoder.Decode(node)
+		// var node yaml.Node
+		data := make(map[string]interface{})
+		// var k8sobj K8sobject
+		err := decoder.Decode(data)
 		if errors.Is(err, io.EOF) {
 			break
 		}
 		if err != nil {
 			panic(err)
 		}
-		content, err := yaml.Marshal(&node)
-		if err != nil {
-			panic(err)
+		if len(data) == 0 {
+			break
 		}
+		fmt.Println(data)
 
-		fmt.Println("Content", content)
+		metadata := data["metadata"].(map[string]interface{})
+
+		// fmt.Println(data)
+		fmt.Println("\napiVersion: ", data["apiVersion"])
+		fmt.Println("kind: ", data["kind"])
+		fmt.Println("name: ", metadata["name"])
+		// yaml.Unmarshal(data, &k8sobj)
+		// fmt.Printf("name: %s\n", k8sobj.Name)
+
 	}
 
 	return nil
